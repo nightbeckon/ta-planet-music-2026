@@ -1,0 +1,27 @@
+/* Loading composition follows the supplied oil-pastel reference. */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.loading-world{position:absolute;inset:0;background:#18528f url('assets/loading-detail.webp') center/100% 100% no-repeat;opacity:0;transition:opacity .9s ease;pointer-events:none}
+#app[data-stage=loading] .loading-world{opacity:1}
+#app[data-stage=loading] .world{filter:none}
+#app[data-stage=loading] .sky-shade{background:linear-gradient(#123c7412,transparent 75%,#16478312)}
+#app[data-stage=loading] .brand{font-size:14px;letter-spacing:2.5px;text-shadow:0 1px 5px #133c6b35}
+#app[data-stage=loading] footer{display:none}
+.load-heading{top:27.3%;left:8%;right:auto;width:62%;text-align:center;color:#fff8e5;text-shadow:0 1px 6px #164b7e44}
+.load-heading h1{font-family:"Kaiti SC",STKaiti,"KaiTi","Songti SC",serif;font-size:23px;font-weight:400;letter-spacing:4px;line-height:1.65;margin:0;transform:rotate(-1.5deg)}
+.load-bottom{bottom:calc(env(safe-area-inset-bottom) + 6.4%);left:12.5%;right:12.5%;color:#fff6df}
+.progress-copy{display:block;text-align:center;margin:0 0 24px;letter-spacing:0;line-height:1.15;text-shadow:0 1px 5px #24579755}
+.progress-copy b{font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:400}
+.progress-copy small{font-family:Georgia,"Times New Roman",serif;font-size:26px;margin-left:1px}
+#progress{height:8px;border:1px solid #e5e1f29c;background:#7194c55c;border-radius:12px;box-shadow:inset 0 0 3px #d8dcf340}
+#fill{background:linear-gradient(90deg,#fff0cb 0%,#f8dbed 38%,#ffe4b3 72%,#eed5ea 100%);box-shadow:0 0 4px #fce5b55c;transition:none}
+#fill .progress-star{width:42px;height:42px;right:-21px;top:50%;transform:translateY(-50%);filter:drop-shadow(0 0 3px #fff7dbb3);line-height:0;text-shadow:none}
+.progress-star svg{width:100%;height:100%;overflow:visible}
+.load-bottom .micro{font-family:"Songti SC",STSong,serif;font-size:13px;letter-spacing:1px;white-space:nowrap;margin:25px -14px 0;line-height:1.6;text-shadow:0 1px 4px #1a50863d}
+.loading .text-button{color:#fff4d8;margin-top:8px}
+@media(max-height:720px){.load-heading{top:27.3%}.load-heading h1{font-size:21px}.load-bottom{bottom:calc(env(safe-area-inset-bottom) + 5.4%)}.progress-copy{margin-bottom:21px}.load-bottom .micro{font-size:12px;margin-top:23px}}
+@media(max-width:350px){.load-heading h1{font-size:21px;letter-spacing:3px}.load-bottom .micro{font-size:11px}.progress-copy b,.progress-copy small{font-size:24px}}
+
+/* Supplied transparent loading title, keeping the existing heading position. */
+.loading-title-art{position:relative;width:100%;aspect-ratio:1392/495;overflow:hidden;pointer-events:none}
+.loading-title-art img{position:absolute;max-width:none;width:127.44253%;height:auto;left:-16.52299%;top:-48.48485%;user-select:none}
+.load-heading h1.sr-only{transform:none}

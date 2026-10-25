@@ -1,0 +1,12 @@
+/* Shared brand: the loading screen's typeface, size and spacing. */
+.brand{font-family:"Songti SC",STSong,serif;font-size:14px;letter-spacing:2.5px}
+/* Keep the source title artwork; crop away the removed invitation line. */
+#welcome .heading-art-frame{aspect-ratio:1424/598}
+#welcome .heading-art-frame img{top:-25.08361%}
+#welcome .welcome-heading-art{top:calc(8.7% + 6px)}
+@media(max-height:720px){#welcome .welcome-heading-art{top:calc(10.5% + 6px)}}
+/* Small authorization artwork, lifted within the unchanged 44px touch row. */
+#welcome .consent-art{width:min(100%,176px)}
+#welcome .consent-art-frame{top:calc(50% - 6px)}
+#welcome .consent-art #agree{left:calc(5.22% - 8px);top:calc(50% - 14px);width:16px;height:16px}
+#welcome .consent-art #agree:checked:after{font-size:13px}

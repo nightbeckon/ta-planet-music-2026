@@ -1,0 +1,21 @@
+/* Approved 2026-10-26: local tonal refinement, with original artwork and UI retained. */
+/* The exact same highlight-preserving CSS grade is used on the poster and decoded video. */
+#app[data-stage=welcome] .world,
+#app[data-stage=journey] .world,
+#app[data-stage=journey] .journey-film{filter:brightness(.96) contrast(1.16) saturate(1.04)}
+/* Moving cloud artwork keeps its original colours and animation; no hue filter. */
+/* Keep cream title ink crisp without adding a second glow. */
+#welcome .heading-art-frame img{filter:contrast(1.025)}
+#welcome .welcome-heading-art{text-shadow:none}
+/* Keep all existing breathing timings and bright cores, concentrating their soft edge. */
+#app[data-stage=welcome] .star-aura:before{inset:9%;background:radial-gradient(circle,#fff8dfb3 0%,#ffefb878 15%,#ffdf9b43 30%,#ffe2af1f 43%,transparent 66%)}
+#app[data-stage=welcome] .star-aura:after{inset:28%}
+#app[data-stage=welcome] .ambient .orbit-halo{animation-name:welcome-orbit-aura-breathe}
+#app[data-stage=welcome] .orbit-star:not(.orbit-companion){animation-name:welcome-small-star-glow}
+#app[data-stage=welcome] .orbit-star{filter:drop-shadow(0 0 3px #ffe6ad)}
+@keyframes welcome-orbit-aura-breathe{from{opacity:.25;transform:scale(.76)}to{opacity:.52;transform:scale(.94)}}
+@keyframes welcome-small-star-glow{from{filter:drop-shadow(0 0 1.5px #ffedb344)}to{filter:drop-shadow(0 0 3px #ffedb388)}}
+
+/* Broad, translucent corner shading avoids covering the warm centre subjects. */
+#app[data-stage=welcome] .scene:before,
+#app[data-stage=journey] .scene:before{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:multiply;background:radial-gradient(ellipse at 0% 83%,#ab96d542,transparent 34%),radial-gradient(ellipse at 100% 87%,#aa95d53d,transparent 32%)}

@@ -1,0 +1,91 @@
+/* Slow, independent light layers preserve the painted illustration. */
+.ambient{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 800ms ease}
+#app[data-stage=loading] .ambient,#app[data-stage=welcome] .ambient{opacity:1}
+.ambient svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ambient .loading-orbit,.ambient .welcome-orbit{display:none}
+#app[data-stage=loading] .loading-orbit,#app[data-stage=welcome] .welcome-orbit{display:inline}
+.orbit-thread{fill:none;stroke:#ffeac0;stroke-width:.8;stroke-linecap:round;stroke-dasharray:22 570;opacity:.5;filter:drop-shadow(0 0 3px #ffdf9d);animation:orbit-thread 15s linear infinite}
+.orbit-thread.second{animation-duration:21s;animation-delay:-8s;opacity:.28}
+.orbit-spark{fill:#fff4cf;filter:drop-shadow(0 0 4px #ffe3a4)}
+.orbit-star{fill:#fff0bf;stroke:#fff8dc;stroke-width:.6;stroke-linejoin:round;filter:drop-shadow(0 0 5px #ffe6ad)}
+.ambient-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 47% 63%,#fff3cd24 0%,#fff2d108 12%,transparent 27%);animation:cloud-breath 7s ease-in-out infinite alternate}
+#app[data-stage=welcome] .ambient-glow{background:radial-gradient(ellipse at 55% 40%,#fff0b52b 0%,#ffedbb08 10%,transparent 23%)}
+.cloud-gleam{position:absolute;left:-15%;right:-15%;top:57%;height:22%;background:radial-gradient(ellipse at 27% 60%,#ffe6ed15,transparent 38%),radial-gradient(ellipse at 78% 30%,#fff0c516,transparent 35%);filter:blur(7px);animation:cloud-drift 13s ease-in-out infinite alternate}
+.shooting-star{position:absolute;left:8%;top:11%;width:65px;height:1px;background:linear-gradient(90deg,transparent,#fff1ba99,#fff9e4);border-radius:50%;transform:rotate(31deg);opacity:0;animation:shooting-star 15s ease-out infinite;animation-delay:1.4s;filter:drop-shadow(0 0 3px #fff0ad)}
+.shooting-star:after{content:'';position:absolute;right:-1px;top:-1px;width:3px;height:3px;background:#fff9e5;border-radius:50%;box-shadow:0 0 5px #fff0b3}
+.shooting-star.second{left:51%;top:6%;width:48px;animation-duration:21s;animation-delay:8s}
+.companion-light{position:absolute;left:46%;top:61.7%;width:14%;height:7%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,#fff4cd57,transparent 67%);mix-blend-mode:screen;animation:companion-light 4.6s ease-in-out infinite alternate}
+#app[data-stage=welcome] .companion-light{left:54%;top:75%}
+.touch-stars{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+.touch-star{position:absolute;left:var(--x);top:var(--y);width:4px;height:4px;border-radius:50%;background:#fff3bf;box-shadow:0 0 8px #ffe3a8;animation:touch-star 1.35s ease-out forwards;pointer-events:none}
+.touch-star.featured{width:15px;height:15px;background:#fff2c7;clip-path:polygon(50% 0,62% 33%,98% 38%,71% 62%,79% 98%,50% 79%,20% 98%,28% 62%,0 38%,37% 33%);box-shadow:none;filter:drop-shadow(0 0 4px #ffedaf)}
+.ambient-paused .ambient *,.ambient-paused .ambient *:before,.ambient-paused .ambient *:after,.ambient-paused .particles *{animation-play-state:paused!important}
+@keyframes orbit-thread{to{stroke-dashoffset:-592}}
+@keyframes cloud-breath{from{opacity:.25}to{opacity:.9}}
+@keyframes cloud-drift{from{transform:translate3d(-5px,3px,0);opacity:.35}to{transform:translate3d(9px,-5px,0);opacity:.75}}
+@keyframes companion-light{from{opacity:.15;transform:translate(-50%,-50%) scale(.8)}to{opacity:.65;transform:translate(-50%,-50%) scale(1.15)}}
+@keyframes shooting-star{0%{opacity:0;transform:translate3d(-20px,-12px,0) rotate(31deg)}3%{opacity:.8}10%{opacity:0;transform:translate3d(170px,98px,0) rotate(31deg)}100%{opacity:0;transform:translate3d(170px,98px,0) rotate(31deg)}}
+@keyframes touch-star{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}12%{opacity:.95}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.35) rotate(35deg)}}
+@media(prefers-reduced-motion:reduce){.ambient,.touch-stars{display:none!important}}
+
+/* Foreground clouds move at different speeds and directions, without a loop cut. */
+.moving-clouds{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+.clouds-ready .moving-clouds{opacity:1}
+.cloud-bank{position:absolute;background:url('assets/cloud-bank.webp') center/contain no-repeat;transform-origin:center;will-change:transform;pointer-events:none}
+.cloud-bank.far-left{width:105%;height:19%;left:-75%;top:43%;opacity:.6;animation:cloud-far-left 24s ease-in-out -8s infinite alternate}
+.right-clouds{position:absolute;inset:0;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 56%,#000 80%);mask-image:linear-gradient(90deg,transparent 56%,#000 80%)}
+.cloud-bank.far-right{width:94%;height:21%;left:76%;top:62%;background-size:auto 100%;background-position:left center;opacity:.42;animation:cloud-right-far-float 16s ease-in-out -6s infinite alternate}
+.cloud-bank.near-left{width:114%;height:27%;left:-65%;top:64%;opacity:.9;animation:cloud-near-left 18s ease-in-out -5s infinite alternate}
+.cloud-bank.near-right{width:106%;height:24%;left:66%;top:73%;background-size:auto 100%;background-position:left center;opacity:.56;animation:cloud-right-near-float 21s ease-in-out -13s infinite alternate}
+.cloud-bank.middle-left{width:70%;height:25%;left:-47%;top:39%;background-size:auto 100%;background-position:right center;opacity:.94;animation:cloud-middle-left 7s ease-in-out -2.4s infinite alternate}
+.cloud-bank.middle-left-wisp{width:69%;height:23%;left:-49%;top:45%;background-size:auto 100%;background-position:right center;opacity:.45;animation:cloud-middle-wisp 10s ease-in-out -6s infinite alternate}
+#app[data-stage=welcome] .cloud-bank.far-left{top:48%;left:-78%}
+#app[data-stage=welcome] .cloud-bank.near-left{top:70%;left:-78%}
+#app[data-stage=welcome] .cloud-bank.middle-left,#app[data-stage=welcome] .cloud-bank.middle-left-wisp{display:none}
+.cloud-bank.welcome-left{display:none;width:94%;height:24%;left:-65%;top:58%;opacity:.72;animation:welcome-cloud-sailing 17s ease-in-out -7s infinite alternate}
+#app[data-stage=welcome] .cloud-bank.welcome-left{display:block}
+.welcome-high-track{stroke-dasharray:14 390;animation-duration:17s;animation-delay:-5s;opacity:.4}
+#app[data-stage=welcome] .cloud-gleam{top:61%;height:24%;animation-duration:16s}
+.ambient .orbit-halo{fill:#ffe6a5;opacity:.12;stroke:none}
+.ambient .star-brush{fill:none;stroke:#fff9e2;stroke-width:.8;opacity:.8}
+.orbit-companion{opacity:.95}
+.orbit-thread{stroke-width:1.05;opacity:.65;animation-duration:12s}
+.shooting-star{width:83px;animation:meteor-cross 11s linear -2.5s infinite;--meteor-x:240px;--meteor-y:135px;--meteor-angle:29deg}
+.shooting-star.second{left:47%;top:7%;width:58px;animation:meteor-cross 14s linear -8s infinite;--meteor-x:160px;--meteor-y:110px;--meteor-angle:35deg}
+.shooting-star.third{left:-11%;top:24%;width:95px;animation:meteor-cross 17s linear -10s infinite;--meteor-x:270px;--meteor-y:-105px;--meteor-angle:-21deg}
+.shooting-star.fourth{left:65%;top:30%;width:64px;animation:meteor-cross 19s linear -15s infinite;--meteor-x:-195px;--meteor-y:128px;--meteor-angle:147deg}
+.shooting-star.fifth{left:8%;top:49%;width:48px;animation:meteor-cross 23s linear -20s infinite;--meteor-x:120px;--meteor-y:-160px;--meteor-angle:-53deg}
+@keyframes cloud-far-left{from{transform:translate3d(-18px,5px,0) rotate(-3deg)}to{transform:translate3d(30px,-7px,0) rotate(1deg)}}
+@keyframes cloud-near-left{from{transform:translate3d(-22px,8px,0) rotate(-2deg)}to{transform:translate3d(34px,-8px,0) rotate(2deg)}}
+@keyframes cloud-middle-left{from{transform:translate3d(-12px,13px,0) rotate(-1.2deg)}to{transform:translate3d(26px,-15px,0) rotate(1.2deg)}}
+@keyframes cloud-middle-wisp{from{transform:translate3d(22px,-9px,0) scale(1.02)}to{transform:translate3d(-15px,14px,0) scale(.98)}}
+@keyframes welcome-cloud-sailing{from{transform:translate3d(-15px,5px,0)}to{transform:translate3d(23px,-7px,0)}}
+@keyframes meteor-cross{0%{opacity:0;transform:translate3d(0,0,0) rotate(var(--meteor-angle))}2%{opacity:.9}11%{opacity:0;transform:translate3d(var(--meteor-x),var(--meteor-y),0) rotate(var(--meteor-angle))}100%{opacity:0;transform:translate3d(var(--meteor-x),var(--meteor-y),0) rotate(var(--meteor-angle))}}
+@media(max-width:350px){.cloud-bank.near-left{left:-70%}}
+@media(prefers-reduced-motion:reduce){.cloud-bank{will-change:auto}}
+
+/* Cream-gold halos expand softly around the stars, with independent rhythms. */
+.painted-star-halos{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;display:none}
+#app[data-stage=loading] .painted-star-halos,#app[data-stage=welcome] .painted-star-halos{display:block}
+.star-aura{display:none;position:absolute;left:var(--x);top:var(--y);width:var(--size);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+#app[data-stage=loading] .star-aura[data-scene=loading],#app[data-stage=welcome] .star-aura[data-scene=welcome]{display:block}
+.star-aura:before,.star-aura:after{content:'';position:absolute;inset:0;border-radius:50%;animation:painted-aura-breathe var(--aura-duration,5.2s) ease-in-out var(--aura-delay,0s) infinite}
+.star-aura:before{background:radial-gradient(circle,#fff8dfb3 0%,#ffefb878 15%,#ffdf9b43 32%,#ffe2af1f 48%,transparent 72%)}
+.star-aura:after{inset:25%;background:radial-gradient(circle,#fffbea99,#fff2c147 34%,transparent 70%);animation-name:painted-aura-core}
+.ambient .orbit-halo{fill:url(#star-aura-soft);stroke:none;opacity:.7;transform-box:fill-box;transform-origin:center;animation:orbit-aura-breathe var(--aura-duration,4.8s) ease-in-out var(--aura-delay,-1s) infinite alternate}
+@keyframes painted-aura-breathe{0%,100%{opacity:.14;transform:scale(.86)}50%{opacity:.88;transform:scale(1.15)}}
+@keyframes painted-aura-core{0%,100%{opacity:.1;transform:scale(.94)}50%{opacity:.46;transform:scale(1.06)}}
+@keyframes orbit-aura-breathe{from{opacity:.25;transform:scale(.9)}to{opacity:.52;transform:scale(1.1)}}
+.particles i{animation-name:star-speck-breathe;animation-duration:4.8s;box-shadow:0 0 4px #fff0bd99}
+.orbit-star:not(.orbit-companion){animation:small-star-glow 5.8s ease-in-out -2s infinite alternate}
+.loading .progress-star svg{animation:small-star-glow 5.4s ease-in-out -1.6s infinite alternate}
+@keyframes star-speck-breathe{from{opacity:.3;transform:scale(.96)}to{opacity:.6;transform:scale(1.06)}}
+@keyframes small-star-glow{from{filter:drop-shadow(0 0 2px #ffedb344)}to{filter:drop-shadow(0 0 5px #ffedb388)}}
+
+/* Welcome effects follow the cover-cropped video frame, rather than stretched page coordinates. */
+#app[data-stage=welcome] .ambient,#app[data-stage=journey] .ambient{inset:auto;left:50%;top:50%;width:var(--poster-width,100%);height:var(--poster-height,100%);transform:translate(-50%,-50%)}
+#app[data-stage=welcome] .companion-light{left:50%;top:80.5%}
+
+/* Two visible right-edge depths: gentle, phase-offset opposing motion without a reset. */
+@keyframes cloud-right-far-float{from{transform:translate3d(12px,5px,0)}to{transform:translate3d(-14px,-6px,0)}}
+@keyframes cloud-right-near-float{from{transform:translate3d(-18px,-5px,0)}to{transform:translate3d(12px,7px,0)}}
