@@ -8,19 +8,19 @@
 <!-- Bump ?v= on every release so CDN/WeChat caches pick up the new files together. -->
 <link rel="preload" as="image" href="assets/loading-title-art.webp" fetchpriority="high">
 <link rel="preload" as="image" href="assets/loading-detail.webp">
-<link rel="preload" as="image" href="assets/journey-poster.webp?v=20261026-wave-titleless">
-<link rel="stylesheet" href="style.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="loading.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="ambient.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="journey-video.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="welcome-copy.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="welcome-grade.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="calendar.css?v=20261026-wave-titleless">
-<link rel="stylesheet" href="wave-scene.css?v=20261026-wave-titleless">
+<link rel="preload" as="image" href="assets/journey-poster.webp?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="style.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="loading.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="ambient.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="journey-video.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="welcome-copy.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="welcome-grade.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="calendar.css?v=20261026-wave-pathfix">
+<link rel="stylesheet" href="wave-scene.css?v=20261026-wave-pathfix">
 </head>
 <body><main id="app" data-stage="loading" data-page="1" aria-label="他TA星球2026年度音乐报告">
 
- <div class="scene" aria-hidden="true"><div id="world" class="world"></div><video id="journey-video" class="journey-film" src="assets/journey-2026.mp4?v=20261026-wave-titleless" poster="assets/journey-poster.webp?v=20261026-wave-titleless" preload="metadata" muted playsinline disablepictureinpicture aria-hidden="true"></video><div class="loading-world"></div><div class="sky-shade"></div><div id="particles" class="particles"></div></div>
+ <div class="scene" aria-hidden="true"><div id="world" class="world"></div><video id="journey-video" class="journey-film" src="assets/journey-2026.mp4?v=20261026-wave-pathfix" poster="assets/journey-poster.webp?v=20261026-wave-pathfix" preload="metadata" muted playsinline disablepictureinpicture aria-hidden="true"></video><div class="loading-world"></div><div class="sky-shade"></div><div id="particles" class="particles"></div></div>
  <audio id="background-music" src="assets/starlight.mp3" preload="auto" loop aria-hidden="true"></audio>
  <header class="site-header"><span class="brand">他TA星球</span><button id="sound" class="sound" title="播放背景音乐《星光》" aria-label="播放背景音乐《星光》" aria-pressed="false"><svg class="sound-disc" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-148a58.07,58.07,0,0,0-58,58,6,6,0,0,1-12,0,70.08,70.08,0,0,1,70-70,6,6,0,0,1,0,12Zm70,58a70.08,70.08,0,0,1-70,70,6,6,0,0,1,0-12,58.07,58.07,0,0,0,58-58,6,6,0,0,1,12,0Zm-40,0a30,30,0,1,0-30,30A30,30,0,0,0,158,128Zm-48,0a18,18,0,1,1,18,18A18,18,0,0,1,110,128Z"/></svg><span class="sound-off-mark" aria-hidden="true"></span><span id="sound-label" class="sr-only">背景音乐未播放</span></button></header>
  <section id="loading" class="screen loading" aria-label="加载中"><div class="load-heading"><div class="loading-title-art" aria-hidden="true"><img src="assets/loading-title-art.webp" alt="" draggable="false" fetchpriority="high"></div><h1 class="sr-only">这一年的旋律，正在汇成星光…</h1></div><div class="load-bottom"><div class="progress-copy"><span id="load-status" class="sr-only" aria-live="polite">星光正在靠近</span><span><b id="percent">0</b><small>%</small></span></div><div id="progress" role="progressbar" aria-label="插画资源加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill"><span class="progress-star"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><filter id="pastel-edge"><feTurbulence type="fractalNoise" baseFrequency=".085" numOctaves="3" seed="5"/><feDisplacementMap in="SourceGraphic" scale="1.2"/></filter><linearGradient id="star-cream" x2=".65" y2="1"><stop stop-color="#fff7ce"/><stop offset=".6" stop-color="#ffe1a8"/><stop offset="1" stop-color="#f9ccac"/></linearGradient></defs><path filter="url(#pastel-edge)" d="M32 4 Q34 2 37 12 L43 24 58 27 Q63 28 58 34 L47 43 48 57 Q48 62 42 59 L30 52 17 59 Q12 62 13 55 L15 41 5 32 Q1 28 8 26 L23 23 29 8Z" fill="url(#star-cream)" stroke="#fff7df" stroke-width="2.8" stroke-linejoin="round"/><path d="M31 13 25 29 11 30 23 38 19 52 32 44 42 51 40 37 52 30 37 28Z" fill="none" stroke="#fff6d5" stroke-width="2" opacity=".7"/><path d="m30 21-5 13 12-3-9 12m3-23 4 18" fill="none" stroke="#fff2c2" stroke-width="2" opacity=".65"/></svg></span></div></div><p class="micro">让散落的旋律，回到你的宇宙</p><button id="retry" class="text-button" hidden>重新连接星光 ↻</button></div></section>
@@ -54,10 +54,10 @@
  <dialog id="privacy-dialog" aria-labelledby="privacy-title"><div class="sheet-handle"></div><div class="sheet-head"><span class="eyebrow">YOUR MEMORIES, YOUR CHOICE</span><button id="close-privacy" class="close" aria-label="关闭说明">×</button></div><h2 id="privacy-title">让音乐记忆，只属于你</h2><div class="sheet-body"><p>欢迎来到「他TA星球」2026 年度音乐报告。开启之前，请了解我们如何使用你的数据。</p><h3>会使用哪些数据</h3><p>正式报告将基于 2026 年 1 月 1 日至 12 月 31 日的收听记录，整理播放时长、歌曲、歌手与收听时段，生成专属于你的年度回顾。</p><h3>你的选择始终有效</h3><p>只有在你主动勾选并点击开启后，才进入报告。你可以在开启前取消勾选；未经你主动操作，不会对外分享报告。</p><h3>关于此交互 Demo</h3><p>本 Demo 展示第1页加载、第2页主页面、第3页星球年历与第4页月度听歌，视频为第2页到第3页的转场。所有数字均为示例，不读取账号、不访问真实收听记录、不上传个人信息。勾选状态仅保留在当前页面，刷新后重置。</p></div><button id="read-privacy" class="primary">我已了解</button><p class="sheet-note">阅读说明不会自动勾选授权</p></dialog>
 
 </main><!-- Sound icon: Phosphor VinylRecord (light), MIT License, see Phosphor-LICENSE.txt -->
-<script src="journey-video.js?v=20261026-wave-titleless"></script>
-<script src="wave-scene.js?v=20261026-wave-titleless"></script>
-<script src="wave-controller.js?v=20261026-wave-titleless"></script>
-<script src="app.js?v=20261026-wave-titleless"></script>
-<script src="ambient.js?v=20261026-wave-titleless"></script>
-<script src="calendar.js?v=20261026-wave-titleless"></script>
+<script src="journey-video.js?v=20261026-wave-pathfix"></script>
+<script src="wave-scene.js?v=20261026-wave-pathfix"></script>
+<script src="wave-controller.js?v=20261026-wave-pathfix"></script>
+<script src="app.js?v=20261026-wave-pathfix"></script>
+<script src="ambient.js?v=20261026-wave-pathfix"></script>
+<script src="calendar.js?v=20261026-wave-pathfix"></script>
 </body></html>

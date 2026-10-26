@@ -5,7 +5,7 @@
   function sync() {
     const active = app.dataset.stage === 'wave';
     if (active && !scene) scene = WaveScene.create(document.getElementById('scene-wave'), {
-      assetsBase: 'assets/wave/', title: '2026 月度听歌', data: [
+      assetsBase: 'wave/', title: '2026 月度听歌', data: [
       { month: 1,  minutes: 1180, artist: '周深',    avatar: '' },
       { month: 2,  minutes: 960,  artist: '周深',    avatar: '' },
       { month: 3,  minutes: 1260, artist: '周深',    avatar: '' },
