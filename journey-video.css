@@ -1,5 +1,5 @@
 /* Frame 0 and the film use identical cover cropping inside every viewport. */
-.world{background-image:url('assets/journey-poster.webp');background-size:cover;background-position:50% 50%}
+.world{background-image:url('assets/journey-poster.webp?v=20261026-act3-review1');background-size:cover;background-position:50% 50%}
 @supports(overflow:clip){#app{overflow:clip}}
 #welcome{transition:opacity 180ms ease}
 #app[data-stage=journey] #welcome{animation:none;opacity:0;pointer-events:none}
@@ -14,14 +14,9 @@
 #app[data-stage=journey] footer{opacity:0}
 .journey-cover{position:absolute;inset:0;z-index:12;background:#f5eede;opacity:0;pointer-events:none;transition:opacity var(--handoff-cover-duration,160ms) linear}
 .journey-cover-on .journey-cover{opacity:1}
-.report-from-video .report{background:#f5eede;animation:none}
-.report-from-video .report-content>*{opacity:0;transform:translateY(9px);transition:opacity .7s ease,transform .7s ease}
-.report-from-video.report-unveil .report-content>*{opacity:1;transform:none}
-.report-from-video.report-unveil .report-content>:nth-child(n+4){transition-delay:100ms}
-.report-from-video.report-unveil .report-content>:nth-child(n+7){transition-delay:220ms}
 @media(prefers-reduced-motion:reduce){
  .journey-film{display:none}
- .journey-cover,.report-from-video .report-content>*{transition:none!important;transform:none!important}
+ .journey-cover{transition:none!important;transform:none!important}
 }
 
 /* A quiet pearl control, kept below the girl and her star. */
@@ -31,16 +26,13 @@
 #app[data-stage=welcome] .ambient,#app[data-stage=journey] .ambient{top:calc((100% - var(--journey-frame-bottom)) / 2)}
 .welcome-heading{top:8.7%;padding:0 18px}
 .welcome h1{font-size:34px;line-height:1.38;margin:12px 0 8px}
-.welcome h1 em{font-size:37px}
-.welcome-heading>p:not(.invitation){margin:8px 0 0;font-size:11px;letter-spacing:1.8px}
-.welcome-heading .invitation{font-family:"Songti SC",STSong,serif;color:#fff1d5;font-size:10px;letter-spacing:1.6px;margin:10px 0 0;line-height:1.6;opacity:.84}
+.welcome-heading>p{margin:8px 0 0;font-size:11px;letter-spacing:1.8px}
 .welcome-bottom{left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom) + 8px);display:flex;flex-direction:column;align-items:center}
 #start{position:relative;isolation:isolate;width:min(100%,286px);min-height:50px;padding:0 17px 0 24px;gap:17px;justify-content:space-between;border:1px solid #fffaf0;border-radius:27px;color:#615476;font-size:17px;letter-spacing:1.4px;background:linear-gradient(115deg,#f4edf7 0%,#fff8eb 74%,#f5e5ce 100%);box-shadow:inset 0 1px 0 #fff,0 4px 16px #586e8f26;transition:box-shadow .22s,border-color .22s,transform .16s}
 #start:before{content:'';position:absolute;inset:3px;border:1px solid #c5aa7847;border-radius:inherit;pointer-events:none}
-#start .arrow{display:grid;place-items:center;flex:0 0 27px;height:27px;border:1px solid #bda77b59;border-radius:50%;font-size:18px;line-height:1;color:#947746;letter-spacing:0;transition:transform .22s,background .22s}
 #start[aria-disabled=true]{filter:none;color:#71677f}
 #start[aria-disabled=false]{border-color:#fff4ce;box-shadow:inset 0 1px 0 #fff,0 4px 18px #61739630,0 0 12px #fff4d655}
-@media(hover:hover){#start:hover{box-shadow:inset 0 1px 0 #fff,0 7px 22px #425d8830}#start:hover .arrow{transform:translateX(2px);background:#fff6df}}
+@media(hover:hover){#start:hover{box-shadow:inset 0 1px 0 #fff,0 7px 22px #425d8830}}
 #start:active{transform:scale(.98);box-shadow:inset 0 1px 5px #cbb8a226,0 2px 7px #586e8f20}
 .welcome-bottom .consent{margin:6px 0 0;min-height:34px;font-size:10px;gap:3px;color:#4d5578}
 .welcome-bottom .consent input{width:18px;height:18px;flex-basis:18px;margin-right:4px;background:#fff8ef80;border-color:#6a7191}
@@ -53,130 +45,14 @@
  #app[data-stage=welcome],#app[data-stage=journey]{--journey-frame-bottom:calc(56px + env(safe-area-inset-bottom,0px));min-height:0}
  .welcome-heading{top:10.5%}
  .welcome h1{font-size:29px;line-height:1.3;margin:8px 0 6px}
- .welcome h1 em{font-size:32px}
- .welcome-heading>p:not(.invitation){font-size:10px;margin-top:6px}
- .welcome-heading .invitation{font-size:9px;margin-top:6px}
+ .welcome-heading>p{font-size:10px;margin-top:6px}
  .welcome-bottom{bottom:calc(env(safe-area-inset-bottom) + 7px)}
  #start{min-height:48px}
 }
-@media(max-width:350px){#start{width:264px;font-size:16px}.welcome-bottom{left:18px;right:18px}.welcome-heading .invitation{letter-spacing:1px}}
-@media(prefers-reduced-motion:reduce){#start,#start .arrow{transition:none}}
+@media(max-width:350px){#start{width:264px;font-size:16px}.welcome-bottom{left:18px;right:18px}}
+@media(prefers-reduced-motion:reduce){#start{transition:none}}
 
 #app[data-stage=welcome] .scene:after,#app[data-stage=journey] .scene:after{content:'';position:absolute;left:0;right:0;bottom:0;height:calc(var(--journey-frame-bottom) + 20px);z-index:1;background:linear-gradient(transparent 0%,#dce1f2 40%,#e8e2ef 100%);pointer-events:none}
-
-/* Handwriting is restricted to the welcome message; Loading typography is unchanged. */
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-101-400-normal.woff2") format("woff2");unicode-range:U+70C1}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-107-400-normal.woff2") format("woff2");unicode-range:U+9022}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-109-400-normal.woff2") format("woff2");unicode-range:U+7275,U+9897}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-111-400-normal.woff2") format("woff2");unicode-range:U+95EA}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-116-400-normal.woff2") format("woff2");unicode-range:U+4E9B,U+5DF1,U+97F3}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-117-400-normal.woff2") format("woff2");unicode-range:U+53BB,U+58F0,U+603B,U+661F,U+91CD}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-118-400-normal.woff2") format("woff2");unicode-range:U+4E3A,U+4F60,U+5E74,U+81EA,U+8FD9}
-@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url("assets/welcome-ma-shan-zheng-119-400-normal.woff2") format("woff2");unicode-range:U+4E00,U+6709,U+7684,U+FF0C}
-#welcome-title,.welcome-heading .invitation{font-family:"Ma Shan Zheng","Kaiti SC",STKaiti,KaiTi,cursive;font-weight:400;font-synthesis:none}
-#welcome-title{font-size:30px;letter-spacing:2px;line-height:1.45;margin:14px 0 0;color:#fff6df}
-#welcome-title span{display:block;white-space:nowrap}
-#welcome-title span:last-child{font-size:39px;letter-spacing:6px;margin-top:4px;line-height:1.5}
-.welcome-heading .invitation{font-size:14px;letter-spacing:1.2px;line-height:1.8;margin:13px 0 0;opacity:.92}
-@media(max-height:720px){#welcome-title{font-size:27px;margin-top:9px;line-height:1.4}#welcome-title span:last-child{font-size:34px;line-height:1.4;margin-top:3px}.welcome-heading .invitation{font-size:12px;margin-top:10px}}
-@media(max-width:350px){#welcome-title{font-size:25px;letter-spacing:1.5px}#welcome-title span:last-child{font-size:33px}.welcome-heading .invitation{font-size:12px;letter-spacing:.8px}}
-
-/* Bundled handwriting font license (also retained for standalone HTML):
-Copyright 2018 The MaShanZheng Project Authors (https://github.com/googlefonts/mashanzheng)
-
-This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
-
-
------------------------------------------------------------
-SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
------------------------------------------------------------
-
-PREAMBLE
-The goals of the Open Font License (OFL) are to stimulate worldwide
-development of collaborative font projects, to support the font creation
-efforts of academic and linguistic communities, and to provide a free and
-open framework in which fonts may be shared and improved in partnership
-with others.
-
-The OFL allows the licensed fonts to be used, studied, modified and
-redistributed freely as long as they are not sold by themselves. The
-fonts, including any derivative works, can be bundled, embedded,
-redistributed and/or sold with any software provided that any reserved
-names are not used by derivative works. The fonts and derivatives,
-however, cannot be released under any other type of license. The
-requirement for fonts to remain under this license does not apply
-to any document created using the fonts or their derivatives.
-
-DEFINITIONS
-"Font Software" refers to the set of files released by the Copyright
-Holder(s) under this license and clearly marked as such. This may
-include source files, build scripts and documentation.
-
-"Reserved Font Name" refers to any names specified as such after the
-copyright statement(s).
-
-"Original Version" refers to the collection of Font Software components as
-distributed by the Copyright Holder(s).
-
-"Modified Version" refers to any derivative made by adding to, deleting,
-or substituting -- in part or in whole -- any of the components of the
-Original Version, by changing formats or by porting the Font Software to a
-new environment.
-
-"Author" refers to any designer, engineer, programmer, technical
-writer or other person who contributed to the Font Software.
-
-PERMISSION & CONDITIONS
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of the Font Software, to use, study, copy, merge, embed, modify,
-redistribute, and sell modified and unmodified copies of the Font
-Software, subject to the following conditions:
-
-1) Neither the Font Software nor any of its individual components,
-in Original or Modified Versions, may be sold by itself.
-
-2) Original or Modified Versions of the Font Software may be bundled,
-redistributed and/or sold with any software, provided that each copy
-contains the above copyright notice and this license. These can be
-included either as stand-alone text files, human-readable headers or
-in the appropriate machine-readable metadata fields within text or
-binary files as long as those fields can be easily viewed by the user.
-
-3) No Modified Version of the Font Software may use the Reserved Font
-Name(s) unless explicit written permission is granted by the corresponding
-Copyright Holder. This restriction only applies to the primary font name as
-presented to the users.
-
-4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
-Software shall not be used to promote, endorse or advertise any
-Modified Version, except to acknowledge the contribution(s) of the
-Copyright Holder(s) and the Author(s) or with their explicit written
-permission.
-
-5) The Font Software, modified or unmodified, in part or in whole,
-must be distributed entirely under this license, and must not be
-distributed under any other license. The requirement for fonts to
-remain under this license does not apply to any document created
-using the Font Software.
-
-TERMINATION
-This license becomes null and void if any of the above conditions are
-not met.
-
-DISCLAIMER
-THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
-OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
-COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
-DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
-OTHER DEALINGS IN THE FONT SOFTWARE.
-
-*/
 
 /* User-supplied transparent artwork, shown verbatim inside cropped CSS viewports. */
 #welcome .welcome-bottom{left:18px;right:18px;bottom:calc(env(safe-area-inset-bottom) + 5px)}

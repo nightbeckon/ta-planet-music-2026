@@ -1,0 +1,104 @@
+/* Chapter 03 · 星球年历: night-sky palette from the "他ta星球年历" study, scoped to #calendar.
+   Layers: far sky → breathing nebulae / star dust → near planet arcs → content. */
+#calendar{
+  --cal-night:#302747;--cal-night-deep:#231c37;--cal-fog:#777daa;
+  --cal-lavender:#b4a4d6;--cal-rose:#d7a6c5;
+  --cal-text:#f4eff9;--cal-text-2:#c3b9d4;--cal-gold:#ffe4ae;
+  --cal-title:"Kaiti SC",STKaiti,KaiTi,"Songti SC",serif;
+  --cal-num:Georgia,"Times New Roman",serif;
+  overflow:hidden;color:var(--cal-text);background:var(--cal-night);isolation:isolate;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif
+}
+#app[data-stage=calendar]{min-height:0}
+#app[data-stage=calendar] footer{display:none}
+
+/* ---------- Far / middle / near layers ---------- */
+.cal-sky{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(120% 60% at 15% -5%,rgba(119,125,170,.85) 0%,rgba(119,125,170,0) 60%),
+    radial-gradient(90% 50% at 110% 105%,rgba(119,125,170,.45) 0%,rgba(119,125,170,0) 65%),
+    linear-gradient(175deg,#3a3157 0%,var(--cal-night) 38%,#2b2342 70%,var(--cal-night-deep) 100%)}
+.cal-neb{position:absolute;border-radius:50%;filter:blur(36px);animation:cal-neb var(--nd,14s) ease-in-out var(--ndl,0s) infinite}
+.cal-neb.n1{--nd:14s;width:78%;height:30%;right:-34%;top:2%;background:radial-gradient(closest-side,rgba(215,166,197,.3),rgba(215,166,197,0))}
+.cal-neb.n2{--nd:18s;--ndl:-6s;width:70%;height:36%;left:-42%;top:34%;background:radial-gradient(closest-side,rgba(180,164,214,.22),rgba(180,164,214,0))}
+.cal-neb.n3{--nd:16s;--ndl:-3s;width:90%;height:26%;left:-20%;bottom:-6%;background:radial-gradient(closest-side,rgba(215,166,197,.16),rgba(119,125,170,0))}
+.cal-neb.n4{--nd:12s;--ndl:-8s;width:44%;height:16%;right:-14%;top:58%;background:radial-gradient(closest-side,rgba(119,125,170,.3),rgba(119,125,170,0))}
+@keyframes cal-neb{0%,100%{opacity:.72;transform:scale(1)}50%{opacity:1;transform:scale(1.06) translate(2%,1%)}}
+.cal-dust{position:absolute;inset:0;width:100%;height:100%}
+.cal-near{position:absolute}
+.cal-near.planet{right:-130px;bottom:-150px;width:300px;height:300px}
+.cal-near.ring{left:-90px;top:-70px;width:220px;height:160px;opacity:.7}
+
+/* ---------- Content ---------- */
+.cal-scroll{position:absolute;inset:0;z-index:1;overflow:hidden;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 94px) 22px calc(env(safe-area-inset-bottom) + 16px)}
+#calendar{touch-action:pan-x}
+.cal-eyebrow{display:block;font-size:9px;letter-spacing:3px;color:var(--cal-text-2);opacity:.85}
+.cal-head{position:relative;margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.cal-line{margin:0;font-size:15px;font-weight:300;line-height:1.75;letter-spacing:.04em;
+  opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.cal-line.lead{font-size:17px;font-weight:400}
+.cal-line.show,.cal-side.show{opacity:1;transform:none}
+.cal-num{font-family:var(--cal-num);color:var(--cal-gold);margin:0 4px;line-height:1;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 14px rgba(255,228,174,.25)}
+.lead .cal-num{font-size:38px;vertical-align:-5px}
+.cal-line:not(.lead) .cal-num{font-size:22px;vertical-align:-2px}
+/* The streak number is a toggle: dashed underline hints it links to the calendar. */
+.cal-streak{cursor:pointer;background:none;border:0;padding:2px 2px 0;border-bottom:1px dashed rgba(255,228,174,.55);border-radius:3px;transition:background .3s}
+.cal-streak:active{transform:none}
+.cal-streak[aria-pressed=true]{background:rgba(255,228,174,.1)}
+@media(hover:hover){.cal-streak:hover{background:rgba(255,228,174,.1)}}
+.cal-side{flex:none;margin:12px 0 16px;text-align:right;font-size:12px;font-weight:300;line-height:1.7;letter-spacing:.06em;color:var(--cal-text-2);opacity:0;transition:opacity .6s ease}
+.cal-orbit{position:absolute;right:-4px;top:-6px;width:96px;height:60px;pointer-events:none;opacity:.75}
+
+/* ---------- Year grid ---------- */
+.cal-year{user-select:none;-webkit-user-select:none;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:14px 18px}
+.cal-month{display:grid;grid-template-rows:14px minmax(0,1fr);gap:6px;min-width:0;min-height:0}
+.cal-mlabel{font-family:var(--cal-num);font-size:15px;line-height:1;color:var(--cal-text-2);opacity:0;transition:opacity .5s ease}
+.cal-mlabel small{font-family:inherit;font-size:11px;margin-left:2px}
+.cal-month.show .cal-mlabel{opacity:1}
+.cal-days{min-height:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:2px}
+/* A day star lights once and then stays steady: no flicker, no fade-out. */
+.cal-d{aspect-ratio:1;position:relative;display:block;width:auto;height:min(100%,14px);max-width:100%;align-self:center;justify-self:center;padding:0;border:0;background:none;border-radius:50%;
+  opacity:0;transform:scale(.5);transition:opacity .5s ease,transform .6s cubic-bezier(.22,.9,.3,1),box-shadow .3s ease}
+.cal-d:active{transform:none}
+.cal-d.blank{cursor:default;pointer-events:none}
+.cal-d.lit{opacity:1;transform:none}
+.cal-d:before,.cal-d:after{content:"";position:absolute;border-radius:50%;transition:transform .45s cubic-bezier(.3,1.4,.5,1),opacity .45s ease;transition-delay:inherit}
+.cal-d.off:before{inset:36%;background:rgba(195,185,212,.32)}
+.cal-d.on:before{inset:29%;background:radial-gradient(circle at 42% 40%,#fffefa 0%,#fff4de 55%,var(--cal-gold) 100%);box-shadow:0 0 3px .5px rgba(255,228,174,.55)}
+.cal-d.on:after{inset:8%;opacity:.8;background:radial-gradient(circle,rgba(255,228,174,.3) 0%,rgba(180,164,214,.16) 48%,rgba(180,164,214,0) 72%)}
+.cal-d.blank:before,.cal-d.blank:after{display:none}
+/* Streak focus: the run glows warmer, everything else steps back but stays legible. */
+.cal-year.focus .cal-d.lit:not(.hl){opacity:.32}
+.cal-d.hl:before{transform:scale(1.2)}
+.cal-d.hl:after{opacity:1;transform:scale(1.15);background:radial-gradient(circle,rgba(255,228,174,.45) 0%,rgba(255,228,174,.14) 50%,rgba(255,228,174,0) 72%)}
+
+/* The footer is a gesture hint, with a keyboard/click equivalent. */
+.cal-swipe{flex:none;align-self:center;margin-top:12px;padding:0 16px;min-height:44px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  border:0;background:none;color:var(--cal-text-2);font-size:11px;letter-spacing:.12em;opacity:0;
+  transition:opacity .6s ease}
+#calendar.done .cal-swipe{opacity:.8}
+.cal-swipe-chevron{font-family:Georgia,serif;font-size:22px;line-height:14px;animation:cal-swipe-drift 2.4s ease-in-out infinite}
+@keyframes cal-swipe-drift{0%,100%{transform:translateY(2px);opacity:.5}50%{transform:translateY(-2px);opacity:1}}
+@media(max-height:720px){
+  .cal-scroll{padding-top:calc(env(safe-area-inset-top) + 82px);padding-bottom:calc(env(safe-area-inset-bottom) + 10px)}
+  .cal-head{margin-top:10px;gap:2px}
+  .cal-line{font-size:13px;line-height:1.55}
+  .cal-line.lead{font-size:15px}
+  .lead .cal-num{font-size:32px}
+  .cal-side{margin:8px 0 10px;font-size:11px;line-height:1.5}
+  .cal-year{gap:8px 14px}
+  .cal-month{gap:4px;grid-template-rows:12px minmax(0,1fr)}
+  .cal-mlabel{font-size:13px}
+  .cal-swipe{margin-top:6px}
+}
+@media(max-width:350px){.cal-scroll{padding-left:16px;padding-right:16px}.cal-year{column-gap:12px}}
+#app[data-stage=calendar].calendar-paused .cal-neb,#app.calendar-paused .cal-swipe-chevron,#app:not([data-stage=calendar]) .cal-neb{animation-play-state:paused}
+
+@media(prefers-reduced-motion:reduce){
+  .cal-neb,.cal-swipe-chevron{animation:none!important}
+  .cal-d,.cal-line{transform:none!important}
+  .cal-d.hl:before,.cal-d.hl:after{transform:none!important}
+}

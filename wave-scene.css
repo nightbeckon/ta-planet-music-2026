@@ -1,0 +1,130 @@
+/* =====================================================================
+   他TA星球 · 月度听歌「星河海浪」幕
+   - 设计基准 390×844，兼容 320×640
+   - 依赖项目级变量：--safe-t / --safe-b / --topbar-h（见 index.html 的 :root）
+   ===================================================================== */
+
+.ws{
+  --ws-ink:#2b4597;
+  --ws-gold:#ffe9a8;
+  --ws-gold-deep:#e8b24f;
+  --ws-foam:#fff4d6;
+  --ws-serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+
+  /* 间距：大屏舒展，小屏优先收紧 */
+  --ws-gap: clamp(6px, 1.4vh, 14px);
+  --ws-pad-x: clamp(16px, 5.2vw, 22px);
+
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;                       /* 仅装饰元素会被裁切 */
+  touch-action:none;                     /* 上滑翻页，不滚动 */
+  overscroll-behavior:none;
+  user-select:none; -webkit-user-select:none;
+  font-family:var(--ws-serif);
+  color:#fff;
+  background:#5d78cf center/cover no-repeat;   /* 天空图由 JS 设置 */
+
+  /* 顶部信息 → 核心数据 → 主体图表 → 底部翻页提示 */
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+  row-gap:var(--ws-gap);
+  padding:
+    calc(var(--safe-t, env(safe-area-inset-top, 0px)) + var(--topbar-h, 44px) + var(--ws-gap))
+    var(--ws-pad-x)
+    calc(var(--safe-b, env(safe-area-inset-bottom, 0px)) + clamp(6px, 1.2vh, 12px));
+  box-sizing:border-box;
+}
+.ws *,.ws *::before,.ws *::after{box-sizing:border-box}
+
+/* ---------- 装饰层（允许超出并裁切） ---------- */
+.ws-deco{position:absolute;inset:0;pointer-events:none}
+.ws-sea{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}
+.ws-clouds{z-index:0}
+.ws-clouds.is-front{z-index:3}
+.ws-clouds img{position:absolute;display:block;height:auto;will-change:transform}
+.ws-drift-a{animation:ws-drift 26s ease-in-out infinite alternate}
+.ws-drift-b{animation:ws-drift 34s ease-in-out infinite alternate-reverse}
+@keyframes ws-drift{from{transform:translate3d(-10px,0,0)}to{transform:translate3d(14px,0,0)}}
+.ws-fx{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+.ws-stars{z-index:2}
+.ws-twinkle{position:absolute;width:var(--s);height:var(--s);animation:ws-tw var(--d) ease-in-out infinite;animation-delay:var(--dl)}
+.ws-twinkle svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 4px rgba(255,236,170,.95))}
+@keyframes ws-tw{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1) rotate(15deg)}}
+.ws-meteor{position:absolute;width:120px;height:1.5px;border-radius:2px;opacity:0;
+  background:linear-gradient(90deg,rgba(255,244,214,0),rgba(255,244,214,.95));
+  box-shadow:0 0 6px rgba(255,233,168,.9);transform-origin:right center;animation:ws-meteor 7.5s linear infinite}
+.ws-meteor.b{animation-delay:3.8s;animation-duration:9s}
+@keyframes ws-meteor{0%{opacity:0;transform:translate(0,0) rotate(-28deg)}3%{opacity:1}
+  12%,100%{opacity:0;transform:translate(-220px,118px) rotate(-28deg)}}
+
+/* ---------- 内容层（全部处于安全区内） ---------- */
+.ws-head,.ws-core,.ws-chart,.ws-hint{position:relative;z-index:5;min-width:0}
+.ws-shadow{text-shadow:0 0 12px rgba(15,30,100,.85),0 0 3px rgba(15,30,100,.7)}
+
+.ws-head{position:absolute;right:var(--ws-pad-x);bottom:calc(var(--safe-b,env(safe-area-inset-bottom,0px)) + 12px);z-index:6;display:flex}
+.ws-replay{flex:none;width:32px;height:32px;border-radius:50%;cursor:pointer;padding:0;
+  border:1px solid rgba(255,244,214,.75);background:rgba(120,140,220,.35);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(255,233,168,.45)}
+.ws-replay svg{width:15px;height:15px}
+
+.ws-core{opacity:0;transform:translateY(8px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.ws-core.is-on{opacity:1;transform:none}
+.ws-core-l1{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:10px;row-gap:2px}
+.ws-who{font-size:clamp(22px,3.6vh,30px);font-weight:900;letter-spacing:2px;line-height:1.2;color:#fff}
+.ws-core-text{font-size:clamp(13px,1.9vh,16px);font-weight:700;letter-spacing:1px}
+.ws-core-text b{color:var(--ws-gold);font-size:1.45em;margin:0 3px;text-shadow:0 0 12px rgba(255,220,130,.95)}
+.ws-core-l2{font-size:clamp(11px,1.5vh,12.5px);opacity:.85;margin-top:3px;letter-spacing:1px}
+
+/* 主体图表：占满剩余空间，坐标由 JS 根据实际尺寸计算 */
+.ws-chart{min-height:0}
+
+.ws-month{position:absolute;left:var(--ws-pad-x);z-index:5;transform:translateY(-50%);
+  font-size:var(--ws-month-fs,12px);font-weight:600;letter-spacing:1px;line-height:1;
+  display:flex;align-items:center;gap:4px;white-space:nowrap;
+  text-shadow:0 0 8px rgba(15,30,110,.85)}
+.ws-month svg{width:7px;height:7px;flex:none;filter:drop-shadow(0 0 3px rgba(255,236,170,.9))}
+
+.ws-label{position:absolute;left:0;top:0;z-index:6;display:flex;align-items:center;gap:8px;opacity:0;will-change:transform,opacity}
+.ws-name{position:relative;font-size:var(--ws-name-fs,15px);font-weight:700;white-space:nowrap;letter-spacing:1px;
+  overflow:visible;text-shadow:0 0 10px rgba(15,30,110,.9),0 0 3px rgba(15,30,110,.8)}
+.ws-avatar-wrap{position:relative;flex:none;will-change:transform}
+.ws-avatar{width:var(--ws-av,38px);height:var(--ws-av,38px);border-radius:50%;border:2px solid var(--ws-foam);
+  box-shadow:0 0 0 1px rgba(255,233,168,.5),0 0 14px rgba(255,233,168,.7),0 5px 12px rgba(30,50,140,.25);
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;font-size:calc(var(--ws-av,38px) * .4);font-weight:700;
+  text-shadow:0 1px 3px rgba(30,40,100,.4)}
+.ws-badge{position:absolute;right:-5px;top:-6px;width:calc(var(--ws-av,38px) * .4);height:calc(var(--ws-av,38px) * .4)}
+.ws-badge svg{width:100%;height:100%;filter:drop-shadow(0 0 4px rgba(255,220,130,1))}
+.ws-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--ws-gold);opacity:0;box-shadow:0 0 12px rgba(255,233,168,.9)}
+.ws-spark{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;opacity:0}
+.ws-spark svg{width:100%;height:100%;display:block}
+
+/* 底部翻页提示：始终可见，与图表保持距离 */
+.ws-hint{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:clamp(4px,1vh,10px);
+  color:var(--ws-ink);font-size:clamp(11px,1.5vh,12.5px);letter-spacing:2px;line-height:1.2;
+  text-shadow:0 0 8px rgba(255,255,255,.95),0 0 2px #fff}
+.ws-hint svg{width:16px;height:16px;animation:ws-hint 1.8s ease-in-out infinite}
+@keyframes ws-hint{0%,100%{transform:translateY(3px);opacity:.55}50%{transform:translateY(-3px);opacity:1}}
+
+/* 小屏：先收紧间距，再略缩字号（不隐藏任何正文） */
+@media (max-height:700px){
+  .ws{--ws-gap:6px}
+  .ws-core-l2{margin-top:1px}
+}
+@media (max-width:340px){
+  .ws-core-l1{column-gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ws-drift-a,.ws-drift-b,.ws-twinkle,.ws-meteor,.ws-hint svg{animation:none}
+}
+
+/* Integration: shared header coordinates, local typography and full-screen stage. */
+#app[data-stage=wave]{min-height:0}
+#app[data-stage=wave] > #footnote{display:none}
+#scene-wave{--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);--topbar-h:76px;position:absolute;inset:0}
+.ws-core-l2{margin-bottom:0}
+.ws [data-r=marks]{position:absolute;inset:0;pointer-events:none}
+.ws-hint{border:0;background:transparent;padding:0;min-height:44px;cursor:pointer}
+.ws-paused .ws-drift-a,.ws-paused .ws-drift-b,.ws-paused .ws-twinkle,.ws-paused .ws-meteor,.ws-paused .ws-hint svg{animation-play-state:paused}
